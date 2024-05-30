@@ -1,5 +1,6 @@
 package ru.gb.springdemo.repository;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 import ru.gb.springdemo.model.Issue;
 
@@ -18,7 +19,6 @@ import java.util.concurrent.atomic.AtomicLong;
 public class IssueRepository {
     private static AtomicLong count = new AtomicLong(0L);
     private final Map<Long, Issue> issues = new ConcurrentHashMap<>();
-
 
     public Issue getByID(Long id) {
         return issues.get(id);

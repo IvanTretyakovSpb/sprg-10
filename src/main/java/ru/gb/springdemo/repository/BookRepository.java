@@ -30,7 +30,7 @@ public class BookRepository {
         books.put(count.incrementAndGet(),
                 new Book(count.get(), "Spring Starts Here"));
         books.put(count.incrementAndGet(),
-                new Book(count.get(), "«Spring 5 Design Patterns"));
+                new Book(count.get(), "Spring 5 Design Patterns"));
     }
 
     public Book getByID(Long id) {
