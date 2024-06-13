@@ -3,6 +3,7 @@ package ru.gb.springdemo.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Класс, описывающий сущность книга для работы с базой данных
@@ -11,6 +12,7 @@ import lombok.Data;
 @Table(name = "books")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class BookEntity {
 
     @Id

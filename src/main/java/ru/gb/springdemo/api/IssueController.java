@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/issue")
 public class IssueController {
 
-    private IssueService issueService;
+    private final IssueService issueService;
 
     @Autowired
     public IssueController(IssueService issueService) {
@@ -30,17 +30,13 @@ public class IssueController {
 
     @GetMapping
     public ResponseEntity<List<Issue>> getAll() {
-        return ResponseEntity.ok(issueService.getAll());
+        return new ResponseEntity<>(issueService.getAll(), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Issue> create(@RequestBody Issue issue) {
-        if (issue != null) {
-            issue = issueService.saveIssue(issue);
-            return new ResponseEntity<>(issue, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        issue = issueService.saveIssue(issue);
+        return new ResponseEntity<>(issue, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

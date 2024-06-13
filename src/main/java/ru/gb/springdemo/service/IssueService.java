@@ -40,7 +40,7 @@ public class IssueService {
 
     public Issue getByID(Long id) {
         return mapping(issueRepository.findById(id)
-                .orElseThrow(() -> new NotFoundEntityException("Issue not found")));
+                .orElseThrow(() -> new NotFoundEntityException("Issue with id = " + id + " not found")));
     }
 
     public List<Issue> getAll() {
@@ -58,8 +58,8 @@ public class IssueService {
                 .orElseThrow(() -> new NotFoundEntityException("Reader not found with id = " + issue.getReaderId()));
 
         if (maxAllowedBooks <= issueRepository.findByReaderIdAndReturnedAt(issue.getReaderId(), null).size()) {
-            throw new UserIssueLimitExceededException("Читателю с ID \"" + issue.getReaderId() + "\" отказано в выдаче по причине " +
-                    "максимального количества книг на руках. Необходимо осуществить предварительный возврат книг.");
+            throw new UserIssueLimitExceededException("Читателю с ID = " + issue.getReaderId() +
+                    " отказано в выдаче по причине превышения максимального количества книг на руках.");
         }
         // Оформляем выдачу только после прохождения всех проверок
         issue.setIssuedAt(LocalDate.now()); // устанавливаем дату выдачи книги

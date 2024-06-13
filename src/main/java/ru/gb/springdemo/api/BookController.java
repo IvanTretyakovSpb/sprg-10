@@ -33,21 +33,13 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> create(@RequestBody Book book) {
-        if (book != null) {
-            return new ResponseEntity<>(bookService.create(book), HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(bookService.create(book), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> update(@PathVariable("id") Long id, @RequestBody Book book) {
-        if (book != null) {
-            Book updatedBook = bookService.update(id, book);
-            return new ResponseEntity<>(updatedBook, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Book updatedBook = bookService.update(id, book);
+        return new ResponseEntity<>(updatedBook, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

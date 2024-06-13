@@ -21,7 +21,6 @@ public class ReaderController {
         this.readerService = readerService;
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Reader> getByID(@PathVariable Long id) {
         Reader reader = readerService.getByID(id);
@@ -46,21 +45,13 @@ public class ReaderController {
 
     @PostMapping
     public ResponseEntity<Reader> create(@RequestBody Reader reader) {
-        if (reader != null) {
-            return new ResponseEntity<>(readerService.create(reader), HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(readerService.create(reader), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Reader> update(@PathVariable("id") Long id, @RequestBody Reader reader) {
-        if (reader != null) {
-            Reader updatedReader = readerService.update(id, reader);
-            return new ResponseEntity<>(readerService.update(id, reader), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Reader updatedReader = readerService.update(id, reader);
+        return new ResponseEntity<>(updatedReader, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

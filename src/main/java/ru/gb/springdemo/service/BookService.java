@@ -26,7 +26,7 @@ public class BookService {
 
     public Book getByID(Long id) {
         return mapping(bookRepository.findById(id)
-                .orElseThrow(() -> new NotFoundEntityException("Book not found")));
+                .orElseThrow(() -> new NotFoundEntityException("Book with id = " + id + " not found")));
     }
 
     public List<Book> getAll() {
