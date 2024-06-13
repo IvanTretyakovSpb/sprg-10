@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springdemo.exception.NotFoundEntityException;
 import ru.gb.springdemo.model.Issue;
 import ru.gb.springdemo.model.Reader;
 import ru.gb.springdemo.service.ReaderService;
@@ -24,11 +25,7 @@ public class ReaderController {
     @GetMapping("/{id}")
     public ResponseEntity<Reader> getByID(@PathVariable Long id) {
         Reader reader = readerService.getByID(id);
-        if (reader != null) {
-            return new ResponseEntity<>(reader, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(reader, HttpStatus.OK);
     }
 
     @GetMapping
@@ -44,12 +41,7 @@ public class ReaderController {
      */
     @GetMapping("/{id}/issue")
     public ResponseEntity<List<Issue>> getIssuesByReaderID(@PathVariable("id") Long id) {
-        Reader reader = readerService.getByID(id);
-        if (reader != null) {
-            return new ResponseEntity<>(readerService.getIssues(id), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(readerService.getIssues(id), HttpStatus.OK);
     }
 
     @PostMapping
@@ -65,11 +57,7 @@ public class ReaderController {
     public ResponseEntity<Reader> update(@PathVariable("id") Long id, @RequestBody Reader reader) {
         if (reader != null) {
             Reader updatedReader = readerService.update(id, reader);
-            if (updatedReader != null) {
-                return new ResponseEntity<>(readerService.update(id, reader), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            return new ResponseEntity<>(readerService.update(id, reader), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -79,5 +67,15 @@ public class ReaderController {
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
         readerService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /**
+     * Метод для обработки исключения в случае некорректно указанного ID читателя
+     *
+     * @return ответ со статусом 404
+     */
+    @ExceptionHandler(NotFoundEntityException.class)
+    public ResponseEntity<Void> processNotFoundEntityException() {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
