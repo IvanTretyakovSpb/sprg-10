@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springdemo.aspect.Timer;
 import ru.gb.springdemo.exception.NotFoundEntityException;
 import ru.gb.springdemo.exception.UserIssueLimitExceededException;
 import ru.gb.springdemo.model.Issue;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/issue")
 @Tag(name = "Book issues")
+@Timer
 public class IssueController {
 
     private final IssueService issueService;

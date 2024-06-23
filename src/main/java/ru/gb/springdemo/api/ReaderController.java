@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springdemo.aspect.RecoverException;
+import ru.gb.springdemo.aspect.Timer;
 import ru.gb.springdemo.exception.NotFoundEntityException;
+import ru.gb.springdemo.exception.UserIssueLimitExceededException;
 import ru.gb.springdemo.model.Issue;
 import ru.gb.springdemo.model.Reader;
 import ru.gb.springdemo.service.ReaderService;
@@ -20,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/reader")
 @Tag(name = "Readers")
+@Timer
 public class ReaderController {
     private final ReaderService readerService;
 
@@ -28,6 +32,7 @@ public class ReaderController {
         this.readerService = readerService;
     }
 
+    @RecoverException(noRecoverFor = {NotFoundEntityException.class, UserIssueLimitExceededException.class})
     @GetMapping("/{id}")
     @Operation(summary = "Get reader by id", description = "Загружает читателя с указанным идентификатором в пути")
     @ApiResponses(value = {

@@ -2,6 +2,7 @@ package ru.gb.springdemo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gb.springdemo.aspect.Timer;
 import ru.gb.springdemo.entity.BookEntity;
 import ru.gb.springdemo.exception.NotFoundEntityException;
 import ru.gb.springdemo.model.Book;
@@ -29,12 +30,14 @@ public class BookService {
                 .orElseThrow(() -> new NotFoundEntityException("Book with id = " + id + " not found")));
     }
 
+    @Timer
     public List<Book> getAll() {
         return bookRepository.findAll().stream()
                 .map(BookService::mapping)
                 .toList();
     }
 
+    @Timer
     public Book create(Book book) {
         return mapping(bookRepository.save(mapping(book)));
     }
