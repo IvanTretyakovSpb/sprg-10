@@ -22,4 +22,8 @@ public class BookEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public BookEntity(String name) {
+        this.name = name;
+    }
 }

@@ -34,4 +34,14 @@ public class IssueEntity {
     @Column(name = "returned_at")
     private LocalDate returnedAt;
 
+    public IssueEntity(Long bookId, Long readerId) {
+        this.bookId = bookId;
+        this.readerId = readerId;
+    }
+
+    public IssueEntity(Long bookId, Long readerId, LocalDate issuedAt) {
+        this.bookId = bookId;
+        this.readerId = readerId;
+        this.issuedAt = issuedAt;
+    }
 }

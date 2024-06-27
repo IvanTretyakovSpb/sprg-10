@@ -32,7 +32,7 @@ public class ReaderController {
         this.readerService = readerService;
     }
 
-    @RecoverException(noRecoverFor = {NotFoundEntityException.class, UserIssueLimitExceededException.class})
+//    @RecoverException
     @GetMapping("/{id}")
     @Operation(summary = "Get reader by id", description = "Загружает читателя с указанным идентификатором в пути")
     @ApiResponses(value = {

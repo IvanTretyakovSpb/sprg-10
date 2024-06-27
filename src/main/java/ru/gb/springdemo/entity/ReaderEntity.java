@@ -23,4 +23,7 @@ public class ReaderEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    public ReaderEntity(String name) {
+        this.name = name;
+    }
 }

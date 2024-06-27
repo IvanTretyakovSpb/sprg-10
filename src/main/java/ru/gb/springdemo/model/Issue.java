@@ -31,4 +31,8 @@ public class Issue {
     @Schema(name = "Дата возврата")
     private LocalDate returnedAt;
 
+    public Issue(Long bookId, Long readerId) {
+        this.bookId = bookId;
+        this.readerId = readerId;
+    }
 }

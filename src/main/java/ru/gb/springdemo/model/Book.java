@@ -20,4 +20,7 @@ public class Book {
     @Schema(name = "Наименование книги")
     private String name;
 
+    public Book(String name) {
+        this.name = name;
+    }
 }

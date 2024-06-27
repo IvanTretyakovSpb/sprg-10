@@ -21,11 +21,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/ui/issues/**").hasRole("ADMIN")
-                        .requestMatchers("/ui/readers/**").hasRole("READER")
+                        .requestMatchers("/ui/readers/**").hasAnyRole("ADMIN", "READER")
                         .requestMatchers("/ui/books/**").authenticated()
                         .anyRequest().permitAll()
                 );

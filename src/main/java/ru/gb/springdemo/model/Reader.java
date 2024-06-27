@@ -20,4 +20,7 @@ public class Reader {
     @Schema(name = "Имя читателя")
     private String name;
 
+    public Reader(String name) {
+        this.name = name;
+    }
 }
