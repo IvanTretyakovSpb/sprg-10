@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -38,6 +39,7 @@ class BookControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /book/id - получение книги с существующим ID")
     void testGetByIdSuccess() {
         Book expected = bookService.create(new Book("Spring in action"));
 
@@ -54,6 +56,7 @@ class BookControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /book/id - получение книги с НЕ существующим ID")
     void testGetByIdNotFound() {
         webTestClient.get()
                 .uri("/book/" + Long.MAX_VALUE)
@@ -62,6 +65,7 @@ class BookControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /book - получение списка ВСЕХ книг")
     void testGetAll() {
         bookRepository.saveAll(List.of(
                 new BookEntity("Java is simple"),
@@ -89,6 +93,7 @@ class BookControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("POST /book - создание новой книги")
     void testCreateBook() {
         JUnitBook createdBook = new JUnitBook("The catcher in the rye");
 
@@ -107,6 +112,7 @@ class BookControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("PUT /book/id - обновление существующей книги")
     void testUpdateById() {
         Book updatedBook = bookService.create(new Book("Spring Boot is the best!"));
         JUnitBook requestForUpdate = new JUnitBook("Spring Boot 3.0");
@@ -125,6 +131,7 @@ class BookControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("DELETE /book/id - удаление существующей книги")
     void testDeleteById() {
         Book deletedBook = bookService.create(new Book("Spring in action"));
 

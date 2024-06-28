@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -38,6 +39,7 @@ class ReaderControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /reader/id - получение читателя с существующим ID")
     void testGetByIdSuccess() {
         Reader expected = readerService.create(new Reader("Tretyakov Ivan"));
 
@@ -54,6 +56,7 @@ class ReaderControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /reader/id - получение читателя с НЕ существующим ID")
     void testGetByIdNotFound() {
         webTestClient.get()
                 .uri("/reader/" + Long.MAX_VALUE)
@@ -62,6 +65,7 @@ class ReaderControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /reader - получение списка ВСЕХ читателей")
     void testGetAll() {
         readerRepository.saveAll(List.of(
                 new ReaderEntity("Oleg"),
@@ -89,6 +93,7 @@ class ReaderControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("POST /reader - создание нового читателя")
     void testCreateReader() {
         JUnitReader createdReader = new JUnitReader("Alex");
 
@@ -107,6 +112,7 @@ class ReaderControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("PUT /reader/id - обновление существующего читателя")
     void testUpdateById() {
         Reader updatedReader = readerService.create(new Reader("John"));
         JUnitReader requestForUpdate = new JUnitReader("David");
@@ -125,6 +131,7 @@ class ReaderControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("DELETE /reader/id - удаление существующего читателя")
     void testDeleteById() {
         Reader deletedReader = readerService.create(new Reader("Mike"));
 

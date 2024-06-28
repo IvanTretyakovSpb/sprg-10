@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -51,6 +52,7 @@ class IssueControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /issue/id - получение выдачи с существующим ID")
     void testGetByIdSuccess() {
         Book book = bookService.create(new Book("Spring in action"));
         Reader reader = readerService.create(new Reader("Ivan"));
@@ -73,6 +75,7 @@ class IssueControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /issue/id - получение выдачи с НЕ существующим ID")
     void testGetByIdNotFound() {
         webTestClient.get()
                 .uri("/issue/" + Long.MAX_VALUE)
@@ -81,6 +84,7 @@ class IssueControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("GET /issue - получение списка ВСЕХ выдач")
     void testGetAll() {
         Book book1 = bookService.create(new Book("Java is simple"));
         Reader reader1 = readerService.create(new Reader("Nick"));
@@ -114,6 +118,7 @@ class IssueControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("POST /issue - создание новой выдачи")
     void testCreateIssue() {
         Book book = bookService.create(new Book("Java -> Kotlin"));
         Reader reader = readerService.create(new Reader("Stepan"));
@@ -137,6 +142,7 @@ class IssueControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("PUT /issue/id - обновление существующей выдачи (возврат книги)")
     void testUpdateById() {
         Book book = bookService.create(new Book("Is Java the best?"));
         Reader reader = readerService.create(new Reader("Sam"));
@@ -161,6 +167,7 @@ class IssueControllerTest extends JUnitSpringBootBase {
     }
 
     @Test
+    @DisplayName("DELETE /issue/id - удаление существующей выдачи")
     void testDeleteById() {
         Book book = bookService.create(new Book("What is Scala?"));
         Reader reader = readerService.create(new Reader("Jack"));
